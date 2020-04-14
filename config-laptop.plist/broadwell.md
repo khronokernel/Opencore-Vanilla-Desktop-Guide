@@ -6,11 +6,11 @@
 
 Links to the new sites:
 
-* [OpenCore Desktop Guide](https://desktop.dortania.ml/)
-* [Getting Started with ACPI](https://acpi.dortania.ml/)
-* [GPU Buyers Guide](https://gpu.dortania.ml/)
-* [Wireless Buyers Guide](https://wifi.dortania.ml/)
-* [Anti-Hackintosh Buyers Guide](https://hardware.dortania.ml/)
+* [OpenCore Desktop Guide](https://dortania.github.io/OpenCore-Desktop-Guide/)
+* [Getting Started with ACPI](https://dortania.github.io/Getting-Started-With-ACPI/)
+* [GPU Buyers Guide](https://dortania.github.io/GPU-Buyers-Guide/)
+* [Wireless Buyers Guide](https://dortania.github.io/Wireless-Buyers-Guide/)
+* [Anti-Hackintosh Buyers Guide](https://dortania.github.io/Anti-Hackintosh-Buyers-Guide/)
 
 ## Starting Point
 
@@ -593,12 +593,12 @@ So thanks to the efforts of Ramus, we also have an amazing tool to help verify y
 **Disable:**
 
 * Fast Boot
-* VT-d(can be enabled if you set `DisableIoMapper` to YES)
+* VT-d (can be enabled if you set `DisableIoMapper` to YES)
 * CSM
 * Thunderbolt
 * Intel SGX
 * Intel Platform Trust
-* CFG Lock(MSR 0xE2 write protection)(**This must be off, if you can't find the option then enable both `AppleCpuPmCfgLock` and `AppleXcpmCfgLock` under Kernel -> Quirks. Your hack will not boot with CFG-Lock enabled**)
+* CFG Lock (MSR 0xE2 write protection)(**This must be off, if you can't find the option then enable both `AppleCpuPmCfgLock` and `AppleXcpmCfgLock` under Kernel -> Quirks. Your hack will not boot with CFG-Lock enabled**)
 
 **Enable:**
 

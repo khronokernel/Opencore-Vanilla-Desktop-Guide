@@ -6,11 +6,11 @@
 
 Links to the new sites:
 
-* [OpenCore Desktop Guide](https://desktop.dortania.ml/)
-* [Getting Started with ACPI](https://acpi.dortania.ml/)
-* [GPU Buyers Guide](https://gpu.dortania.ml/)
-* [Wireless Buyers Guide](https://wifi.dortania.ml/)
-* [Anti-Hackintosh Buyers Guide](https://hardware.dortania.ml/)
+* [OpenCore Desktop Guide](https://dortania.github.io/OpenCore-Desktop-Guide/)
+* [Getting Started with ACPI](https://dortania.github.io/Getting-Started-With-ACPI/)
+* [GPU Buyers Guide](https://dortania.github.io/GPU-Buyers-Guide/)
+* [Wireless Buyers Guide](https://dortania.github.io/Wireless-Buyers-Guide/)
+* [Anti-Hackintosh Buyers Guide](https://dortania.github.io/Anti-Hackintosh-Buyers-Guide/)
 
 ### About
 
@@ -48,12 +48,12 @@ Lastly, this guide is only meant to be a starting point in your journey with Ope
 **Disable:**
 
 * Fast Boot
-* VT-d(can be enabled if you set DisableIoMapper to YES)
+* VT-d (can be enabled if you set DisableIoMapper to YES)
 * CSM
 * Thunderbolt
 * Intel SGX
 * Intel Platform Trust
-* CFG Lock(MSR 0xE2 write protection)
+* CFG Lock (MSR 0xE2 write protection)
   * If this can't be turned off in the BIOS(or even found) please consider patching it out. See [Fixing CFG Lock](extras/msr-lock.md) for more info.
     * AMD CPU users don't need to worry about.
 

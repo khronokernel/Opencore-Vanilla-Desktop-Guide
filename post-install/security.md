@@ -6,11 +6,11 @@
 
 Links to the new sites:
 
-* [OpenCore Desktop Guide](https://desktop.dortania.ml/)
-* [Getting Started with ACPI](https://acpi.dortania.ml/)
-* [GPU Buyers Guide](https://gpu.dortania.ml/)
-* [Wireless Buyers Guide](https://wifi.dortania.ml/)
-* [Anti-Hackintosh Buyers Guide](https://hardware.dortania.ml/)
+* [OpenCore Desktop Guide](https://dortania.github.io/OpenCore-Desktop-Guide/)
+* [Getting Started with ACPI](https://dortania.github.io/Getting-Started-With-ACPI/)
+* [GPU Buyers Guide](https://dortania.github.io/GPU-Buyers-Guide/)
+* [Wireless Buyers Guide](https://dortania.github.io/Wireless-Buyers-Guide/)
+* [Anti-Hackintosh Buyers Guide](https://dortania.github.io/Anti-Hackintosh-Buyers-Guide/)
 
 So something that makes OpenCore truly special is how it's been built with security in mind which is quite rare especially in the Hackintosh community. Well here we'll be going through and setting up some of OpenCore's great Security features:
 
