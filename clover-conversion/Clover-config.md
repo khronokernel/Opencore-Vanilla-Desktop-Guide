@@ -6,11 +6,11 @@
 
 Links to the new sites:
 
-* [OpenCore Desktop Guide](https://desktop.dortania.ml/)
-* [Getting Started with ACPI](https://acpi.dortania.ml/)
-* [GPU Buyers Guide](https://gpu.dortania.ml/)
-* [Wireless Buyers Guide](https://wifi.dortania.ml/)
-* [Anti-Hackintosh Buyers Guide](https://hardware.dortania.ml/)
+* [OpenCore Desktop Guide](https://dortania.github.io/OpenCore-Desktop-Guide/)
+* [Getting Started with ACPI](https://dortania.github.io/Getting-Started-With-ACPI/)
+* [GPU Buyers Guide](https://dortania.github.io/GPU-Buyers-Guide/)
+* [Wireless Buyers Guide](https://dortania.github.io/Wireless-Buyers-Guide/)
+* [Anti-Hackintosh Buyers Guide](https://dortania.github.io/Anti-Hackintosh-Buyers-Guide/)
 
 So this little(well not so little as I reread this...) page is for users who are having issues migrating from Clover to OpenCore as some of their legacy quirks are required or the Configuration.pdf isn't well suited for laptop users.  
 
