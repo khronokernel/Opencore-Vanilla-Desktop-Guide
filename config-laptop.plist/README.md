@@ -1,30 +1,16 @@
 # Creating our config
 
-Now comes the fun part, making our config.plist. Follow your respective section for configuring, the typical breakdown of how to follow:
+**Attention to all users, please note this guide and other khronokernel sites will be shutting down on April 16th, 2020. Reason for this is we've decided to move the guides to a dedicated organization to help simplify the hackintosh process and provide a single, trusted source for hackintosh information. This new organization will be known as [Dortania](https://github.com/dortania).**
 
-[Ivy Bridge](/config-laptop.plist/ivy-bridge.md)
-* 3000 series, 2012 era
+Links to the new sites:
 
-[Haswell](/config-laptop.plist/haswell.md)
-* 4000 series, 2013 era
+* [OpenCore Desktop Guide](https://dortania.github.io/OpenCore-Desktop-Guide/)
+* [Getting Started with ACPI](https://dortania.github.io/Getting-Started-With-ACPI/)
+* [GPU Buyers Guide](https://dortania.github.io/GPU-Buyers-Guide/)
+* [Wireless Buyers Guide](https://dortania.github.io/Wireless-Buyers-Guide/)
+* [Anti-Hackintosh Buyers Guide](https://dortania.github.io/Anti-Hackintosh-Buyers-Guide/)
 
-[Broadwell](/config-laptop.plist/broadwell.md)
-* 5000 series, 2014 era
 
-[Skylake](/config-laptop.plist/skylake.md)
-* 6000 series, 2015-2016 era
+If you're looking for this guide, you can find it here:
 
-[Kaby Lake](/config-laptop.plist/kaby-lake.md)
-* 7000 series, 2017 era
-* Kaby Lake-R and Amber Lake also apply
-
-[Coffee Lake(8th Gen)](/config-laptop.plist/coffee-lake.md)
-* 8000 series, 2017-2018 era
-
-[Coffee Lake Plus(9th Gen)](/config-laptop.plist/coffee-lake-plus.md)
-* 9000 series, 2019 era
-* Comet Lake also applies
-
-Special notes:
-
-* Ice Lake is not yet supported, while macOS does have support both MacInfoPkg and WhateverGreen need to be adapted. And we also need framebuffer dumps to get a good idea on what's needed
+# [OpenCore Desktop Guide](https://dortania.github.io/OpenCore-Desktop-Guide/)
