@@ -673,12 +673,9 @@
                                 <section class="normal markdown-section">
                                 
                                 <blockquote>
-<p><em>Last modified: Tue Apr 14 2020 15:52:12 GMT+0000 (Coordinated Universal Time)</em></p>
+<p><em>Last modified: Thu Apr 16 2020 00:01:51 GMT+0000 (Coordinated Universal Time)</em></p>
 </blockquote>
 <h1 id="creating-the-usb"><a name="creating-the-usb" class="plugin-anchor" href="#creating-the-usb"><i class="fa fa-link" aria-hidden="true"></i></a>Creating the USB</h1>
-<ul>
-<li>Supported version: 0.5.7</li>
-</ul>
 <p><strong>Attention to all users, please note this guide and other khronokernel sites will be shutting down on April 16th, 2020. Reason for this is we&apos;ve decided to move the guides to a dedicated organization to help simplify the hackintosh process and provide a single, trusted source for hackintosh information. This new organization will be known as <a href="https://github.com/dortania" target="_blank">Dortania</a>.</strong></p>
 <p>Links to the new sites:</p>
 <ul>
@@ -688,69 +685,8 @@
 <li><a href="https://dortania.github.io/Wireless-Buyers-Guide/" target="_blank">Wireless Buyers Guide</a></li>
 <li><a href="https://dortania.github.io/Anti-Hackintosh-Buyers-Guide/" target="_blank">Anti-Hackintosh Buyers Guide</a></li>
 </ul>
-<p>Requirements:</p>
-<ul>
-<li><a href="https://github.com/acidanthera/OpenCorePkg/releases" target="_blank">OpenCorePkg</a>, highly recommend running the debug version to show more info</li>
-<li><a href="https://github.com/acidanthera/AppleSupportPkg/releases" target="_blank">AppleSupportPkg</a></li>
-<li><a href="https://github.com/corpnewt/ProperTree" target="_blank">ProperTree</a> to edit .plist files (OpenCore Configurator is another tool but is heavily outdated and the Mackie version is known for corruption. <strong>Please avoid these kinds of tools at all costs!</strong>).</li>
-<li>Cleaned NVRAM(This is seriously important if you used Clover before, as many variables will remain causing conflicts. Luckily with OC you can press <code>CleanNvram</code> in the boot picker when <code>AllowNvramReset</code> is enabled in your config)</li>
-<li>Basic knowledge of how a Hackintosh works and what files yours requires(ie: Type of network controller).</li>
-<li>You must remove Clover from your system entirely if you wish to use it as your main boot-loader. Keep a backup of your Clover based EFI. See here on what needs to be cleaned: <a href="https://github.com/khronokernel/Opencore-Vanilla-Desktop-Guide/tree/master/clover-conversion" target="_blank">Clover Conversion</a></li>
-</ul>
-<h1 id="making-the-installer"><a name="making-the-installer" class="plugin-anchor" href="#making-the-installer"><i class="fa fa-link" aria-hidden="true"></i></a>Making the installer</h1>
-<p>Depending on which OS you&apos;re on, see your specific section on making the USB, then once done return here on setting up OpenCore:</p>
-<ul>
-<li><a href="mac-install.html">macOS users</a></li>
-<li><a href="winblows-install.html">Windows users</a></li>
-<li><a href="linux-install.html">Linux users</a></li>
-</ul>
-<h1 id="setting-up-the-efi"><a name="setting-up-the-efi" class="plugin-anchor" href="#setting-up-the-efi"><i class="fa fa-link" aria-hidden="true"></i></a>Setting up the EFI</h1>
-<p>To setup OpenCore&#x2019;s folder structure, you&#x2019;ll want to grab the EFI folder found in OpenCorePkg&apos;s releases page(this will already be done on the <code>BOOT</code> USB drive for windows users):</p>
-<p><img src="https://cdn.discordapp.com/attachments/683011276938543134/696593582701805568/Screen_Shot_2020-04-05_at_11.33.56_PM.png" alt="base EFI folder"></p>
-<p>Now something you&apos;ll notice is that it comes with a bunch of files in <code>Drivers</code> and <code>Tools</code> folder, we don&apos;t want most of these:</p>
-<ul>
-<li><p><strong>Remove from Drivers:</strong></p>
-<ul>
-<li>OpenUsbKbDxe.efi<ul>
-<li>Used for OpenCore picker on <strong>legacy systems running DuetPkg</strong>, <a href="https://applelife.ru/threads/opencore-obsuzhdenie-i-ustanovka.2944066/page-176#post-856653" target="_blank">not recommended and even harmful on Ivy Bridge and newer</a></li>
-</ul>
-</li>
-<li>NvmExpressDxe.efi<ul>
-<li>Used for Haswell and older when no NVMe driver is built into the firmware</li>
-</ul>
-</li>
-<li>XhciDxe.efi<ul>
-<li>Used for Sandy Bridge and older when no XHCI driver is built into the firmware</li>
-</ul>
-</li>
-<li>HiiDatabase.efi<ul>
-<li>Used for fixing GUI support like OpenShell.efi on Sandy Bridge and older</li>
-</ul>
-</li>
-<li>OpenCanopy.efi<ul>
-<li>This is OpenCore&apos;s optional GUI, we&apos;ll be going over how to set this up in post-install so remove this for now</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>Remove everything from Tools:</strong></p>
-<ul>
-<li>Way to many to list them all, but I recommend keeping OpenShell.efi for troubleshooting pruposes</li>
-</ul>
-</li>
-</ul>
-<p>A cleaned up EFI:</p>
-<p><img src="https://cdn.discordapp.com/attachments/683011276938543134/696593842849316904/Screen_Shot_2020-04-05_at_11.34.58_PM.png" alt="Clean EFI"></p>
-<p>Now you can place <strong>your</strong> necessary firmware drivers(.efi) from AppleSupportPkg into the <em>Drivers</em> folder and Kexts/ACPI into their respective folders. Please note that UEFI drivers from Clover are not supported with OpenCore!(EmuVariableUEFI, AptioMemoryFix, OsxAptioFixDrv, etc). Please see the <a href="https://github.com/khronokernel/Opencore-Vanilla-Desktop-Guide/blob/master/clover-conversion/clover-efi.md" target="_blank">Clover firmware driver conversion</a> for more info on supported drivers and those merged into OpenCore.</p>
-<p>Here&apos;s what a populated EFI can look like:</p>
-<p><img src="https://cdn.discordapp.com/attachments/683011276938543134/696594137591578644/Screen_Shot_2020-04-05_at_11.36.13_PM.png" alt="Populated EFI folder"></p>
-<p><strong>Reminder</strong>:</p>
-<ul>
-<li>SSDTs and custom DSDTs(<code>.aml</code>) go in ACPI folder</li>
-<li>Kexts(<code>.kext</code>) go in Kexts folder</li>
-<li>Firmware drivers(<code>.efi</code>) go in the Drivers folder</li>
-</ul>
-<h2 id="now-head-to-gathering-files-to-get-the-needed-kexts-and-firmware-drivers"><a name="now-head-to-gathering-files-to-get-the-needed-kexts-and-firmware-drivers" class="plugin-anchor" href="#now-head-to-gathering-files-to-get-the-needed-kexts-and-firmware-drivers"><i class="fa fa-link" aria-hidden="true"></i></a>Now head to <a href="../ktext.html">Gathering Files</a> to get the needed kexts and firmware drivers</h2>
+<p>If you&apos;re looking for this guide, you can find it here:</p>
+<h1 id="opencore-desktop-guide"><a name="opencore-desktop-guide" class="plugin-anchor" href="#opencore-desktop-guide"><i class="fa fa-link" aria-hidden="true"></i></a><a href="https://dortania.github.io/OpenCore-Desktop-Guide/" target="_blank">OpenCore Desktop Guide</a></h1>
 
                                 
                                 </section>
@@ -794,7 +730,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Creating the USB","level":"1.2","depth":1,"next":{"title":"macOS install","level":"1.2.1","depth":2,"path":"installer-guide/mac-install.md","ref":"installer-guide/mac-install.md","articles":[]},"previous":{"title":"OpenCore Vanilla Guide","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-default","-lunr","-search","search-plus","addcssjs","favicon-plus","github-edit","anchors","last-modified"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"last-modified":{},"output":"_book","addcssjs":{"css":[],"js":[]},"fontsettings":{"family":"sans","size":2,"theme":"night"},"favicon-plus":{"appleTouchIconPrecomposed152":"","favicon":"","output":"_book"},"highlight":{},"github-edit":{"repo":"khronokernel/Opencore-Vanilla-Desktop-Guide","branch":"master"},"favicon":"/icons/favicon.ico","appleTouchIconPrecomposed152":"/icons/appleTouchIconPrecomposed152.png","sharing":{"all":[],"facebook":false,"google":false,"instapaper":false,"twitter":false,"vk":false,"weibo":false},"theme-default":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"anchors":{},"search-plus":{}},"theme":"default","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":36,"bottom":36},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"links":{"sharing":{"google":false,"facebook":false,"twitter":false,"weibo":false,"all":false}},"gitbook":"*"},"file":{"path":"installer-guide/opencore-efi.md","mtime":"2020-04-14T15:52:12.192Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-14T15:54:22.395Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Creating the USB","level":"1.2","depth":1,"next":{"title":"macOS install","level":"1.2.1","depth":2,"path":"installer-guide/mac-install.md","ref":"installer-guide/mac-install.md","articles":[]},"previous":{"title":"OpenCore Vanilla Guide","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-default","-lunr","-search","search-plus","addcssjs","favicon-plus","github-edit","anchors","last-modified"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"last-modified":{},"output":"_book","addcssjs":{"css":[],"js":[]},"fontsettings":{"family":"sans","size":2,"theme":"night"},"favicon-plus":{"appleTouchIconPrecomposed152":"","favicon":"","output":"_book"},"highlight":{},"github-edit":{"repo":"khronokernel/Opencore-Vanilla-Desktop-Guide","branch":"master"},"favicon":"/icons/favicon.ico","appleTouchIconPrecomposed152":"/icons/appleTouchIconPrecomposed152.png","sharing":{"all":[],"facebook":false,"google":false,"instapaper":false,"twitter":false,"vk":false,"weibo":false},"theme-default":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"anchors":{},"search-plus":{}},"theme":"default","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":36,"bottom":36},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"links":{"sharing":{"google":false,"facebook":false,"twitter":false,"weibo":false,"all":false}},"gitbook":"*"},"file":{"path":"installer-guide/opencore-efi.md","mtime":"2020-04-16T00:01:51.944Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-16T00:03:56.718Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

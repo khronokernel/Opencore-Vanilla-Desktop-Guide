@@ -673,12 +673,9 @@
                                 <section class="normal markdown-section">
                                 
                                 <blockquote>
-<p><em>Last modified: Tue Apr 14 2020 15:52:12 GMT+0000 (Coordinated Universal Time)</em></p>
+<p><em>Last modified: Thu Apr 16 2020 00:01:51 GMT+0000 (Coordinated Universal Time)</em></p>
 </blockquote>
 <h1 id="opencore-debugging"><a name="opencore-debugging" class="plugin-anchor" href="#opencore-debugging"><i class="fa fa-link" aria-hidden="true"></i></a>OpenCore Debugging</h1>
-<ul>
-<li>Supported version: 0.5.7</li>
-</ul>
 <p><strong>Attention to all users, please note this guide and other khronokernel sites will be shutting down on April 16th, 2020. Reason for this is we&apos;ve decided to move the guides to a dedicated organization to help simplify the hackintosh process and provide a single, trusted source for hackintosh information. This new organization will be known as <a href="https://github.com/dortania" target="_blank">Dortania</a>.</strong></p>
 <p>Links to the new sites:</p>
 <ul>
@@ -688,49 +685,8 @@
 <li><a href="https://dortania.github.io/Wireless-Buyers-Guide/" target="_blank">Wireless Buyers Guide</a></li>
 <li><a href="https://dortania.github.io/Anti-Hackintosh-Buyers-Guide/" target="_blank">Anti-Hackintosh Buyers Guide</a></li>
 </ul>
-<p>Needing to figure out why you&apos;re getting issues or stalling? Well, you&apos;ve come to the right place.</p>
-<p>To start, make sure you&apos;re using either the <code>DEBUG</code> or <code>NOOPT</code> versions of OpenCore. This will provide much more info than the <code>RELEASE</code> version.</p>
-<p><strong>Target</strong> Used for enabling different levels of debugging</p>
-<ul>
-<li><code>0x01</code> &#x2014; Enable Logging</li>
-<li><code>0x02</code> &#x2014; Enable Onscreen debug</li>
-<li><code>0x04</code> &#x2014; Enable logging to Data Hub.</li>
-<li><code>0x08</code> &#x2014; Enable serial port logging.</li>
-<li><code>0x10</code> &#x2014; Enable UEFI variable logging.</li>
-<li><code>0x20</code> &#x2014; Enable non-volatile UEFI variable logging. </li>
-<li><code>0x40</code> &#x2014; Enable logging to file.</li>
-</ul>
-<p>To calculate the target, we can use a HEX calculator and then convert it to decimal. For us we want to have our values on stored onto a .txt file for later viewing:</p>
-<ul>
-<li><code>0x01</code> &#x2014; Enable Logging</li>
-<li><code>0x02</code> &#x2014; Enable Onscreen debug</li>
-<li><code>0x10</code> &#x2014; Enable UEFI variable logging.</li>
-<li><code>0x40</code> &#x2014; Enable logging to file.</li>
-</ul>
-<p><code>0x01</code> + <code>0x02</code> + <code>0x10</code> + <code>0x40</code> = <code>0x53</code></p>
-<p><code>0x53</code> converted to decimal becomes <code>83</code></p>
-<p>So we can set <code>Misc</code> -&gt; <code>Debug</code> -&gt; <code>Target</code> -&gt; <code>83</code></p>
-<p><strong>DisplayLevel</strong></p>
-<p>Used for setting what is logged</p>
-<ul>
-<li><code>0x00000002</code> &#x2014; DEBUG_WARN in DEBUG, NOOPT, RELEASE.</li>
-<li><code>0x00000040</code> &#x2014; DEBUG_INFO in DEBUG, NOOPT.</li>
-<li><code>0x00400000</code> &#x2014; DEBUG_VERBOSE in custom builds.</li>
-<li><p><code>0x80000000</code> &#x2014; DEBUG_ERROR in DEBUG, NOOPT, RELEASE.</p>
-<p>A full list can be found in <a href="https://github.com/tianocore/edk2/blob/UDK2018/MdePkg/Include/Library/DebugLib.h" target="_blank">DebugLib.h</a>.</p>
-</li>
-</ul>
-<p>For us we just want the following:</p>
-<ul>
-<li><code>0x00000002</code> &#x2014; DEBUG_WARN in DEBUG, NOOPT, RELEASE.</li>
-<li><code>0x00000040</code> &#x2014; DEBUG_INFO in DEBUG, NOOPT.</li>
-<li><code>0x80000000</code> &#x2014; DEBUG_ERROR in DEBUG, NOOPT, RELEASE.</li>
-</ul>
-<p>Just like with <code>Target</code>, we use a HEX calculator then convert to decimal:</p>
-<p><code>0x80000042</code> Converted to decimal <code>Misc</code> -&gt; <code>Debug</code> -&gt; <code>DisplayLevel</code> -&gt; <code>2147483714</code></p>
-<p><strong>DisableWatchdog</strong>: YES Disables the UEFI watchdog, used for when OpenCore is stalling on something non-critical.</p>
-<h2 id="disabling-logging"><a name="disabling-logging" class="plugin-anchor" href="#disabling-logging"><i class="fa fa-link" aria-hidden="true"></i></a>Disabling logging</h2>
-<p>To remove all file logging, set <code>Target</code> to <code>0</code></p>
+<p>If you&apos;re looking for this guide, you can find it here:</p>
+<h1 id="opencore-desktop-guide"><a name="opencore-desktop-guide" class="plugin-anchor" href="#opencore-desktop-guide"><i class="fa fa-link" aria-hidden="true"></i></a><a href="https://dortania.github.io/OpenCore-Desktop-Guide/" target="_blank">OpenCore Desktop Guide</a></h1>
 
                                 
                                 </section>
@@ -774,7 +730,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"OpenCore Debugging","level":"6.2","depth":1,"next":{"title":"Legacy Install","level":"7.1","depth":1,"path":"extras/legacy.md","ref":"extras/legacy.md","articles":[]},"previous":{"title":"General Troubleshooting","level":"6.1","depth":1,"path":"troubleshooting/troubleshooting.md","ref":"troubleshooting/troubleshooting.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-default","-lunr","-search","search-plus","addcssjs","favicon-plus","github-edit","anchors","last-modified"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"last-modified":{},"output":"_book","addcssjs":{"css":[],"js":[]},"fontsettings":{"family":"sans","size":2,"theme":"night"},"favicon-plus":{"appleTouchIconPrecomposed152":"","favicon":"","output":"_book"},"highlight":{},"github-edit":{"repo":"khronokernel/Opencore-Vanilla-Desktop-Guide","branch":"master"},"favicon":"/icons/favicon.ico","appleTouchIconPrecomposed152":"/icons/appleTouchIconPrecomposed152.png","sharing":{"all":[],"facebook":false,"google":false,"instapaper":false,"twitter":false,"vk":false,"weibo":false},"theme-default":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"anchors":{},"search-plus":{}},"theme":"default","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":36,"bottom":36},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"links":{"sharing":{"google":false,"facebook":false,"twitter":false,"weibo":false,"all":false}},"gitbook":"*"},"file":{"path":"troubleshooting/debug.md","mtime":"2020-04-14T15:52:12.192Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-14T15:54:22.395Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"OpenCore Debugging","level":"6.2","depth":1,"next":{"title":"Legacy Install","level":"7.1","depth":1,"path":"extras/legacy.md","ref":"extras/legacy.md","articles":[]},"previous":{"title":"General Troubleshooting","level":"6.1","depth":1,"path":"troubleshooting/troubleshooting.md","ref":"troubleshooting/troubleshooting.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-default","-lunr","-search","search-plus","addcssjs","favicon-plus","github-edit","anchors","last-modified"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"last-modified":{},"output":"_book","addcssjs":{"css":[],"js":[]},"fontsettings":{"family":"sans","size":2,"theme":"night"},"favicon-plus":{"appleTouchIconPrecomposed152":"","favicon":"","output":"_book"},"highlight":{},"github-edit":{"repo":"khronokernel/Opencore-Vanilla-Desktop-Guide","branch":"master"},"favicon":"/icons/favicon.ico","appleTouchIconPrecomposed152":"/icons/appleTouchIconPrecomposed152.png","sharing":{"all":[],"facebook":false,"google":false,"instapaper":false,"twitter":false,"vk":false,"weibo":false},"theme-default":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"anchors":{},"search-plus":{}},"theme":"default","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":36,"bottom":36},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"links":{"sharing":{"google":false,"facebook":false,"twitter":false,"weibo":false,"all":false}},"gitbook":"*"},"file":{"path":"troubleshooting/debug.md","mtime":"2020-04-16T00:01:51.944Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-16T00:03:56.718Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

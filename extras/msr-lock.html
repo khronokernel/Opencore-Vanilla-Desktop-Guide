@@ -673,12 +673,9 @@
                                 <section class="normal markdown-section">
                                 
                                 <blockquote>
-<p><em>Last modified: Tue Apr 14 2020 15:52:12 GMT+0000 (Coordinated Universal Time)</em></p>
+<p><em>Last modified: Thu Apr 16 2020 00:01:51 GMT+0000 (Coordinated Universal Time)</em></p>
 </blockquote>
 <h1 id="fixing-cfg-lock"><a name="fixing-cfg-lock" class="plugin-anchor" href="#fixing-cfg-lock"><i class="fa fa-link" aria-hidden="true"></i></a>Fixing CFG Lock</h1>
-<ul>
-<li>Supported version: 0.5.7</li>
-</ul>
 <p><strong>Attention to all users, please note this guide and other khronokernel sites will be shutting down on April 16th, 2020. Reason for this is we&apos;ve decided to move the guides to a dedicated organization to help simplify the hackintosh process and provide a single, trusted source for hackintosh information. This new organization will be known as <a href="https://github.com/dortania" target="_blank">Dortania</a>.</strong></p>
 <p>Links to the new sites:</p>
 <ul>
@@ -688,52 +685,8 @@
 <li><a href="https://dortania.github.io/Wireless-Buyers-Guide/" target="_blank">Wireless Buyers Guide</a></li>
 <li><a href="https://dortania.github.io/Anti-Hackintosh-Buyers-Guide/" target="_blank">Anti-Hackintosh Buyers Guide</a></li>
 </ul>
-<p>Do note that this is only recommended for users who have already installed macOS, for users who are ibnstalling for the first time enable <code>AppleCpuPmCfgLock</code> and <code>AppleXcpmCfgLock</code> under <code>Kernel -&gt; Quirks</code></p>
-<h2 id="disabling-cfg-lock"><a name="disabling-cfg-lock" class="plugin-anchor" href="#disabling-cfg-lock"><i class="fa fa-link" aria-hidden="true"></i></a>Disabling CFG Lock</h2>
-<p>So you&apos;ve installed macOS but you&apos;re using those pesky <code>CFG-Lock</code> patches that we want to get rid of, well to do this is fairly simple. You&apos;ll need the following:</p>
-<p>Inside your EFI/OC/Tools folder and config.plist:</p>
-<ul>
-<li><a href="https://github.com/acidanthera/OpenCorePkg/releases" target="_blank">VerifyMsrE2</a></li>
-<li><a href="https://github.com/datasone/grub-mod-setup_var/releases" target="_blank">Modifed GRUB Shell</a></li>
-</ul>
-<p>And some apps to help us out:</p>
-<ul>
-<li><a href="https://github.com/LongSoft/UEFITool/releases" target="_blank">UEFITool</a> (Make sure it&apos;s UEFITool and not UEFIExtrac)</li>
-<li><a href="https://github.com/LongSoft/Universal-IFR-Extractor/releases" target="_blank">Universal-IFR-Extractor</a></li>
-</ul>
-<p>And don&apos;t forget to disable the following from your config.plist under <code>Kernel -&gt; Quirks</code>:</p>
-<ul>
-<li><code>AppleCpuPmCfgLock</code></li>
-<li><code>AppleXcpmCfgLock</code></li>
-</ul>
-<p>And the final part, grabbing your BIOS from the vendors&apos; website.</p>
-<p>Now the fun part!</p>
-<h2 id="checking-if-cfg-lock-can-be-turned-off"><a name="checking-if-cfg-lock-can-be-turned-off" class="plugin-anchor" href="#checking-if-cfg-lock-can-be-turned-off"><i class="fa fa-link" aria-hidden="true"></i></a>Checking if CFG-Lock can be turned off</h2>
-<p>Boot OpenCore and select the <code>VerifyMsrE2</code> option in the picker. This tool will tell you whether your BIOS supports CFG-Lock and if it can be unlocked.</p>
-<h2 id="turning-off-cfg-lock-manually"><a name="turning-off-cfg-lock-manually" class="plugin-anchor" href="#turning-off-cfg-lock-manually"><i class="fa fa-link" aria-hidden="true"></i></a>Turning off CFG-Lock manually</h2>
-<ol>
-<li>Open your firmware with UEFITool and then find <code>CFG Lock</code> as a Unicode string. If nothing pops up then your firmware doesn&apos;t support <code>CFG Lock</code>, otherwise continue on. </li>
-</ol>
-<p><img src="https://i.imgur.com/ziN50wL.png" alt=""></p>
-<ol>
-<li>You&apos;ll find that this string is found within a Setup folder, right-click and export as <code>Setup.bin</code></li>
-<li><p>Open your setup file with <code>ifrextract</code> and export as a .txt file with terminal:</p>
-<pre><code class="lang-text">path/to/ifrextract path/to/Setup.bin path/to/Setup.txt
-</code></pre>
-</li>
-<li><p>Open the text file and search for <code>CFG Lock, VarStoreInfo (VarOffset/VarName):</code> and note the offset right after it(ie: <code>0x5A4</code>)</p>
-</li>
-</ol>
-<p><img src="https://i.imgur.com/Vp8dqI5.png" alt=""></p>
-<ol>
-<li><p>Run the Modified GRUB Shell and paste the following where <code>0x5A4</code> is replaced with your value:</p>
-<pre><code class="lang-text">setup_var 0x5A4 0x00
-</code></pre>
-<p>Do note that variable offsets are unique not just to each motherboard but even to its firmware version. <strong>Never try to use an offset without checking.</strong></p>
-</li>
-</ol>
-<p>And you&apos;re done! Now you&apos;ll have correct CPU power management</p>
-<p><strong>Note</strong>: Every time you reset your BIOS you will need to flip this bit again, make sure to write it down with the BIOS version so you know which.</p>
+<p>If you&apos;re looking for this guide, you can find it here:</p>
+<h1 id="opencore-desktop-guide"><a name="opencore-desktop-guide" class="plugin-anchor" href="#opencore-desktop-guide"><i class="fa fa-link" aria-hidden="true"></i></a><a href="https://dortania.github.io/OpenCore-Desktop-Guide/" target="_blank">OpenCore Desktop Guide</a></h1>
 
                                 
                                 </section>
@@ -777,7 +730,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Fixing CFG Lock","level":"5.1.5","depth":2,"next":{"title":"Fixing Resolution and Verbose","level":"5.1.6","depth":2,"path":"post-install/verbose.md","ref":"post-install/verbose.md","articles":[]},"previous":{"title":"Updating OpenCore, kexts and macOS","level":"5.1.4","depth":2,"path":"post-install/update.md","ref":"post-install/update.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-default","-lunr","-search","search-plus","addcssjs","favicon-plus","github-edit","anchors","last-modified"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"last-modified":{},"output":"_book","addcssjs":{"css":[],"js":[]},"fontsettings":{"family":"sans","size":2,"theme":"night"},"favicon-plus":{"appleTouchIconPrecomposed152":"","favicon":"","output":"_book"},"highlight":{},"github-edit":{"repo":"khronokernel/Opencore-Vanilla-Desktop-Guide","branch":"master"},"favicon":"/icons/favicon.ico","appleTouchIconPrecomposed152":"/icons/appleTouchIconPrecomposed152.png","sharing":{"all":[],"facebook":false,"google":false,"instapaper":false,"twitter":false,"vk":false,"weibo":false},"theme-default":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"anchors":{},"search-plus":{}},"theme":"default","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":36,"bottom":36},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"links":{"sharing":{"google":false,"facebook":false,"twitter":false,"weibo":false,"all":false}},"gitbook":"*"},"file":{"path":"extras/msr-lock.md","mtime":"2020-04-14T15:52:12.192Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-14T15:54:22.395Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Fixing CFG Lock","level":"5.1.5","depth":2,"next":{"title":"Fixing Resolution and Verbose","level":"5.1.6","depth":2,"path":"post-install/verbose.md","ref":"post-install/verbose.md","articles":[]},"previous":{"title":"Updating OpenCore, kexts and macOS","level":"5.1.4","depth":2,"path":"post-install/update.md","ref":"post-install/update.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-default","-lunr","-search","search-plus","addcssjs","favicon-plus","github-edit","anchors","last-modified"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"last-modified":{},"output":"_book","addcssjs":{"css":[],"js":[]},"fontsettings":{"family":"sans","size":2,"theme":"night"},"favicon-plus":{"appleTouchIconPrecomposed152":"","favicon":"","output":"_book"},"highlight":{},"github-edit":{"repo":"khronokernel/Opencore-Vanilla-Desktop-Guide","branch":"master"},"favicon":"/icons/favicon.ico","appleTouchIconPrecomposed152":"/icons/appleTouchIconPrecomposed152.png","sharing":{"all":[],"facebook":false,"google":false,"instapaper":false,"twitter":false,"vk":false,"weibo":false},"theme-default":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"anchors":{},"search-plus":{}},"theme":"default","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":36,"bottom":36},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"links":{"sharing":{"google":false,"facebook":false,"twitter":false,"weibo":false,"all":false}},"gitbook":"*"},"file":{"path":"extras/msr-lock.md","mtime":"2020-04-16T00:01:51.944Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-16T00:03:56.718Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

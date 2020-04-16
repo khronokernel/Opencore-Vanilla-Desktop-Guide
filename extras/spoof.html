@@ -671,12 +671,9 @@
                                 <section class="normal markdown-section">
                                 
                                 <blockquote>
-<p><em>Last modified: Tue Apr 14 2020 15:52:12 GMT+0000 (Coordinated Universal Time)</em></p>
+<p><em>Last modified: Thu Apr 16 2020 00:01:51 GMT+0000 (Coordinated Universal Time)</em></p>
 </blockquote>
 <h1 id="disabling-gpu"><a name="disabling-gpu" class="plugin-anchor" href="#disabling-gpu"><i class="fa fa-link" aria-hidden="true"></i></a>Disabling GPU</h1>
-<ul>
-<li>Supported version: 0.5.7</li>
-</ul>
 <p><strong>Attention to all users, please note this guide and other khronokernel sites will be shutting down on April 16th, 2020. Reason for this is we&apos;ve decided to move the guides to a dedicated organization to help simplify the hackintosh process and provide a single, trusted source for hackintosh information. This new organization will be known as <a href="https://github.com/dortania" target="_blank">Dortania</a>.</strong></p>
 <p>Links to the new sites:</p>
 <ul>
@@ -686,115 +683,8 @@
 <li><a href="https://dortania.github.io/Wireless-Buyers-Guide/" target="_blank">Wireless Buyers Guide</a></li>
 <li><a href="https://dortania.github.io/Anti-Hackintosh-Buyers-Guide/" target="_blank">Anti-Hackintosh Buyers Guide</a></li>
 </ul>
-<h2 id="gpu-spoof"><a name="gpu-spoof" class="plugin-anchor" href="#gpu-spoof"><i class="fa fa-link" aria-hidden="true"></i></a>GPU Spoof</h2>
-<p>So you need to hide your unsupported GPU? Well with OpenCore things are slightly different, specifically that we need to specify to which exact device we want to spoof. There are 3 ways we can do this:</p>
-<ul>
-<li>Boot Flag<ul>
-<li>Disables all GPUs except the iGPU</li>
-</ul>
-</li>
-<li>DeviceProperties<ul>
-<li>Disables GPU on a per-slot basis</li>
-</ul>
-</li>
-<li>SSDT<ul>
-<li>Disables GPU on a per-slot basis</li>
-</ul>
-</li>
-</ul>
-<p><strong>CSM must be off in the BIOS for the spoofing to work correctly, especially on AMD CPU based systems</strong></p>
-<h3 id="boot-flag"><a name="boot-flag" class="plugin-anchor" href="#boot-flag"><i class="fa fa-link" aria-hidden="true"></i></a>Boot Flag</h3>
-<p>By far the simplest way, all you need to do is add the following boot-arg:</p>
-<p><code>-wegnoegpu</code></p>
-<p>Do note that this will disable all GPUs excluding the iGPU</p>
-<h3 id="deviceproperties-method"><a name="deviceproperties-method" class="plugin-anchor" href="#deviceproperties-method"><i class="fa fa-link" aria-hidden="true"></i></a>DeviceProperties Method</h3>
-<p>Here is quite simple, find the PCI route with <a href="https://github.com/acidanthera/gfxutil/releases" target="_blank">gfxutil</a> and then create a new DeviceProperties section with your spoof:</p>
-<pre><code class="lang-text">path/to/gfxutil -f GFX0
-</code></pre>
-<p>And the output will result in something similar:</p>
-<pre><code class="lang-text">DevicePath = PciRoot(0x0)/Pci(0x1,0x0)/Pci(0x0,0x0)/Pci(0x0,0x0)/Pci(0x0,0x0)
-</code></pre>
-<p>With this, navigate towards <code>Root -&gt; DeviceProperties -&gt; Add</code> and add your PCI route with the following properties:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Key</th>
-<th style="text-align:left">Type</th>
-<th style="text-align:left">Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">name</td>
-<td style="text-align:left">data</td>
-<td style="text-align:left">23646973706C6179</td>
-</tr>
-<tr>
-<td style="text-align:left">IOName</td>
-<td style="text-align:left">string</td>
-<td style="text-align:left">#display</td>
-</tr>
-<tr>
-<td style="text-align:left">class-code</td>
-<td style="text-align:left">data</td>
-<td style="text-align:left">FFFFFFFF</td>
-</tr>
-</tbody>
-</table>
-<p><img src="https://i.imgur.com/IjrDgNz.png" alt=""></p>
-<h3 id="ssdt-method"><a name="ssdt-method" class="plugin-anchor" href="#ssdt-method"><i class="fa fa-link" aria-hidden="true"></i></a>SSDT Method</h3>
-<p>There are many ways to find the path but generally, the easiest way is to get into Device Manager under windows and find the PCI path.</p>
-<p>Example of device path:</p>
-<p><code>\_SB.PCI0.PEG0.PEGP</code></p>
-<pre><code>DefinitionBlock (&quot;&quot;, &quot;SSDT&quot;, 2, &quot;hack&quot;, &quot;spoof&quot;, 0x00000000)
-{
-   External (_SB_.PCI0.PEG0.PEGP, DeviceObj)    // (from opcode)
-
-   Method (_SB.PCI0.PEG0.PEGP._DSM, 4, NotSerialized)  // _DSM: Device-Specific Method
-   {
-      If (LOr (LNot (Arg2), LEqual (_OSI (&quot;Darwin&quot;), Zero)))
-      {
-         Return (Buffer (One)
-         {
-            0x03                                           
-         })
-      }
-
-      Return (Package (0x0A)
-      {
-         &quot;name&quot;, 
-         Buffer (0x09)
-         {
-            &quot;#display&quot;
-         }, 
-
-         &quot;IOName&quot;, 
-         &quot;#display&quot;, 
-         &quot;class-code&quot;, 
-         Buffer (0x04)
-         {
-            0xFF, 0xFF, 0xFF, 0xFF                         
-         }, 
-
-         &quot;vendor-id&quot;, 
-         Buffer (0x04)
-         {
-            0xFF, 0xFF, 0x00, 0x00                         
-         }, 
-
-         &quot;device-id&quot;, 
-         Buffer (0x04)
-         {
-            0xFF, 0xFF, 0x00, 0x00                         
-         }
-      })
-   }
-}
-</code></pre><p>A copy of this SSDT can be found here: <a href="https://github.com/khronokernel/Opencore-Vanilla-Desktop-Guide/blob/master/extra-files/Spoof-SSDT.dsl" target="_blank">Spoof-SSDT.dsl</a> You will need <a href="https://github.com/acidanthera/MaciASL/releases" target="_blank">MaciASL</a> to compile this, reminder that .aml is assembled and .dsl is source code. You can compile with MaciASL by running File -&gt; Save As -&gt; ACPI Machine Language.</p>
-<p>Source: CorpNewt</p>
-<h2 id="fixing-windows"><a name="fixing-windows" class="plugin-anchor" href="#fixing-windows"><i class="fa fa-link" aria-hidden="true"></i></a>Fixing Windows</h2>
-<p>So something that many users are annoyed about is the fact that you need to switch between GPU outputs. Well a neat little trick on Windows is that you can reroute your display options to a specific GPU:</p>
-<p><img src="https://i.imgur.com/TG3jGBC.png" alt="Credit to CorpNewt for image"></p>
+<p>If you&apos;re looking for this guide, you can find it here:</p>
+<h1 id="opencore-desktop-guide"><a name="opencore-desktop-guide" class="plugin-anchor" href="#opencore-desktop-guide"><i class="fa fa-link" aria-hidden="true"></i></a><a href="https://dortania.github.io/OpenCore-Desktop-Guide/" target="_blank">OpenCore Desktop Guide</a></h1>
 
                                 
                                 </section>
@@ -834,7 +724,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Disabling unsupported GPUs","level":"7.5","depth":1,"next":{"title":"Clover Conversion","level":"7.6","depth":1,"url":"https://github.com/khronokernel/Opencore-Vanilla-Desktop-Guide/tree/master/clover-conversion","ref":"https://github.com/khronokernel/Opencore-Vanilla-Desktop-Guide/tree/master/clover-conversion","articles":[]},"previous":{"title":"Fixing KASLR slide values","level":"7.4","depth":1,"path":"extras/kalsr-fix.md","ref":"extras/kalsr-fix.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-default","-lunr","-search","search-plus","addcssjs","favicon-plus","github-edit","anchors","last-modified"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"last-modified":{},"output":"_book","addcssjs":{"css":[],"js":[]},"fontsettings":{"family":"sans","size":2,"theme":"night"},"favicon-plus":{"appleTouchIconPrecomposed152":"","favicon":"","output":"_book"},"highlight":{},"github-edit":{"repo":"khronokernel/Opencore-Vanilla-Desktop-Guide","branch":"master"},"favicon":"/icons/favicon.ico","appleTouchIconPrecomposed152":"/icons/appleTouchIconPrecomposed152.png","sharing":{"all":[],"facebook":false,"google":false,"instapaper":false,"twitter":false,"vk":false,"weibo":false},"theme-default":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"anchors":{},"search-plus":{}},"theme":"default","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":36,"bottom":36},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"links":{"sharing":{"google":false,"facebook":false,"twitter":false,"weibo":false,"all":false}},"gitbook":"*"},"file":{"path":"extras/spoof.md","mtime":"2020-04-14T15:52:12.192Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-14T15:54:22.395Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Disabling unsupported GPUs","level":"7.5","depth":1,"next":{"title":"Clover Conversion","level":"7.6","depth":1,"url":"https://github.com/khronokernel/Opencore-Vanilla-Desktop-Guide/tree/master/clover-conversion","ref":"https://github.com/khronokernel/Opencore-Vanilla-Desktop-Guide/tree/master/clover-conversion","articles":[]},"previous":{"title":"Fixing KASLR slide values","level":"7.4","depth":1,"path":"extras/kalsr-fix.md","ref":"extras/kalsr-fix.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-default","-lunr","-search","search-plus","addcssjs","favicon-plus","github-edit","anchors","last-modified"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"last-modified":{},"output":"_book","addcssjs":{"css":[],"js":[]},"fontsettings":{"family":"sans","size":2,"theme":"night"},"favicon-plus":{"appleTouchIconPrecomposed152":"","favicon":"","output":"_book"},"highlight":{},"github-edit":{"repo":"khronokernel/Opencore-Vanilla-Desktop-Guide","branch":"master"},"favicon":"/icons/favicon.ico","appleTouchIconPrecomposed152":"/icons/appleTouchIconPrecomposed152.png","sharing":{"all":[],"facebook":false,"google":false,"instapaper":false,"twitter":false,"vk":false,"weibo":false},"theme-default":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"anchors":{},"search-plus":{}},"theme":"default","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":36,"bottom":36},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"links":{"sharing":{"google":false,"facebook":false,"twitter":false,"weibo":false,"all":false}},"gitbook":"*"},"file":{"path":"extras/spoof.md","mtime":"2020-04-16T00:01:51.944Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-16T00:03:56.718Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
